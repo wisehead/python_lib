@@ -189,15 +189,16 @@ def test_asset_mine():
     params = {
         "channel": Channel,
         #"uid": "20180623112615000001",
-        "uid": "20180623142625001",
+        #"uid": "20180623142625001",
+        "uid": "20180623153325001",
         "arr": [
             {
                 "user": "userA",      # TODO 设置　记录的key。　在一次创建提交中，不要存在相同的key，否则只有一条会被记录到历史交易中
-                "amount": 101000000,       # TODO 设置　记录的value
+                "amount": 10100000000000,       # TODO 设置　记录的value
             },
             {
                 "user": "userB",      # TODO 设置　记录的key。　在一次创建提交中，不要存在相同的key，否则只有一条会被记录到历史交易中
-                "amount": 1010000000,       # TODO 设置　记录的value
+                "amount": 101000000000,       # TODO 设置　记录的value
             }
         ]
     }
@@ -217,6 +218,22 @@ def test_asset_transfer_recycle():
         "type": "recycle",
         "uid": "20180623152729001",
         "arr": [{"user": "userA"}]
+    }
+
+    # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
+    # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
+    request_common(params, "asset-transfer", print_cmd=True, need_request=False)
+
+#3.用户购买商品
+def test_asset_transfer_buy():
+    """
+        批量创建记录接口测试
+    """
+    params = {
+        "channel": Channel,
+        "type": "buy",
+        "uid": "20180623162021001",
+        "arr": [{"user": "userA", "amount": 200000000}]
     }
 
     # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
@@ -292,7 +309,8 @@ if __name__ == "__main__":
         # TODO 选择要测试的接口，一次只能打开一个！！！
 
         #test_asset_mine()
-        test_asset_transfer_recycle()
+        #test_asset_transfer_recycle()
+        test_asset_transfer_buy()
         #test_asset_state()
         #test_asset_history()
         #test_asset_uid_status()
