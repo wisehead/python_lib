@@ -271,6 +271,24 @@ def test_asset_exchange_xsb2mgb():
     # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
     # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
     request_common(params, "asset-exchange", print_cmd=True, need_request=False)
+
+#6.摩根币兑换小柿饼
+def test_asset_exchange_mgb2xsb():
+    """
+        批量创建记录接口测试
+    """
+    params = {
+        "channel": Channel,
+        "type": "mgb2xsb",
+        "uid": "20180623171001001",
+        "arr": [{"user": "userA", "amount": 100000000}]
+    }
+
+    # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
+    # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
+    request_common(params, "asset-exchange", print_cmd=True, need_request=False)
+
+
 #8.查询用户积分
 def test_asset_state():
     """
@@ -345,7 +363,8 @@ if __name__ == "__main__":
         #test_asset_transfer_recycle()
         #test_asset_transfer_buy()
         #test_asset_transfer_inner()
-        test_asset_exchange_xsb2mgb()
+        #test_asset_exchange_xsb2mgb()
+        test_asset_exchange_mgb2xsb()
         #test_asset_state()
         #test_asset_history()
         #test_asset_uid_status()
