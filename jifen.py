@@ -207,6 +207,22 @@ def test_asset_mine():
     request_common(params, "asset-mine", print_cmd=True, need_request=False)
 
 
+#2.用户资源回收
+def test_asset_transfer_recycle():
+    """
+        批量创建记录接口测试
+    """
+    params = {
+        "channel": Channel,
+        "type": "recycle",
+        "uid": "20180623152729001",
+        "arr": [{"user": "userA"}]
+    }
+
+    # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
+    # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
+    request_common(params, "asset-transfer", print_cmd=True, need_request=False)
+
 #8.查询用户积分
 def test_asset_state():
     """
@@ -276,10 +292,11 @@ if __name__ == "__main__":
         # TODO 选择要测试的接口，一次只能打开一个！！！
 
         #test_asset_mine()
+        test_asset_transfer_recycle()
         #test_asset_state()
         #test_asset_history()
         #test_asset_uid_status()
-        test_asset_uid()
+        #test_asset_uid()
     except Exception as e:
         traceback.print_exc()
         print(e)
