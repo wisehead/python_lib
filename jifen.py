@@ -261,7 +261,9 @@ def test_asset_history():
     """
     params = {
         "channel": Channel,
-        "user": "userA"
+        "user": "userA",
+        "start": 0,
+        "count": 5000 
     }
 
     # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
@@ -310,9 +312,9 @@ if __name__ == "__main__":
 
         #test_asset_mine()
         #test_asset_transfer_recycle()
-        test_asset_transfer_buy()
+        #test_asset_transfer_buy()
         #test_asset_state()
-        #test_asset_history()
+        test_asset_history()
         #test_asset_uid_status()
         #test_asset_uid()
     except Exception as e:
