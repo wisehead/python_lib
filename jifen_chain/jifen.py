@@ -355,7 +355,8 @@ def test_asset_uid():
     """
     params = {
         "channel": Channel,
-        "uid": "20180623142625001",
+        #"uid": "20180623142625001",
+        "uid": "20180623172301001",
         "type": "all",
         "arr": ["userA", "userB"]
     }
@@ -380,11 +381,11 @@ if __name__ == "__main__":
         #test_asset_transfer_inner()
         #test_asset_exchange_xsb2mgb()
         #test_asset_exchange_mgb2xsb()
-        test_asset_exchange()
+        #test_asset_exchange()
         #test_asset_state()
         #test_asset_history()
         #test_asset_uid_status()
-        #test_asset_uid()
+        test_asset_uid()
     except Exception as e:
         traceback.print_exc()
         print(e)
