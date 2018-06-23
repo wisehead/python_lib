@@ -22,7 +22,8 @@ DEFAULT_BINARY_URL = NBCAPID_BINARY_URL_21
 ApiKey = "7a79d668d61993119516d7c898aa072bb971467752e3e7bb2751cc474080db00"
 SecretKey = "3072c26dedb17d5545e53099fced54d30e13ad7f98a0ca542a73549535540600"
 TxId = ""
-Channel = "notaryinfotestchannel"
+#Channel = "notaryinfotestchannel"
+Channel = "assettestchannel"
 
 #############################################　公共函数　###################################################
 
@@ -260,29 +261,29 @@ def test_source_get_binary():
     print(s)
 
 
-def test_source_insert_batch():
+def test_asset_mine():
     """
         批量创建记录接口测试
     """
     params = {
         "channel": Channel,
-        "records": [
+        #"uid": "20180623112615000001",
+        "uid": "20180623112615001",
+        "arr": [
             {
-                "key": "1130102150229180616010000000005",      # TODO 设置　记录的key。　在一次创建提交中，不要存在相同的key，否则只有一条会被记录到历史交易中
-                "value": "hahaha3",       # TODO 设置　记录的value
-                "meta": {"readcount": 1}
+                "user": "userA",      # TODO 设置　记录的key。　在一次创建提交中，不要存在相同的key，否则只有一条会被记录到历史交易中
+                "amount": 101000000,       # TODO 设置　记录的value
             },
             {
-                "key": "1130102150229180616010000000006",
-                "value": "hahahaha4",
-                "meta": {"readcount": 1}
+                "user": "userB",      # TODO 设置　记录的key。　在一次创建提交中，不要存在相同的key，否则只有一条会被记录到历史交易中
+                "amount": 1010000000,       # TODO 设置　记录的value
             }
         ]
     }
 
     # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
     # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
-    request_common(params, "source-insert-batch", print_cmd=True, need_request=False)
+    request_common(params, "asset-mine", print_cmd=True, need_request=False)
 
 
 def test_source_transactions():
@@ -338,15 +339,17 @@ if __name__ == "__main__":
     #############################################　参数设置　###################################################
     ApiKey = "7a79d668d61993119516d7c898aa072bb971467752e3e7bb2751cc474080db00"             # TODO 设置　用户的ApiKey
     SecretKey = "3072c26dedb17d5545e53099fced54d30e13ad7f98a0ca542a73549535540600"       # TODO 设置　用户的密钥
-    Channel = "notaryinfotestchannel"            # TODO 设置　用户的子链channel
+    #Channel = "notaryinfotestchannel"            # TODO 设置　用户的子链channel
+    Channel = "assettestchannel"            # TODO 设置　用户的子链channel
 
     try:
         # TODO 选择要测试的接口，一次只能打开一个！！！
 
+        test_asset_mine()
         # test_source_insert_batch()
         #test_source_transactions()
         # test_source_transaction()
-        test_source_state()
+        #test_source_state()
         # test_source_put_binary()
         # test_source_get_binary()
     except Exception as e:
