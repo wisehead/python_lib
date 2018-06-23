@@ -181,86 +181,6 @@ def request_common(params, method, **kwargs):
 
 
 #############################################　测试函数　###################################################
-
-def test_source_put_binary():
-    """
-    创建二进制记录接口测试
-    """
-    params = {
-        "channel": Channel,
-        "key": "test/my2.pic",     # TODO 设置　要创建的记录的key。　如果已经存在些二进制文件(数据)，创建会失败
-    }
-
-    upload_file_path = "jiagong1.jpg"  # TODO 设置　要创建的记录对应的文件(数据)
-
-    origin_params = {"params": params, "jsonrpc": "2.0", "id": 0, "method": "source-put-binary"}
-    signed_params = get_signed_json(origin_params, SecretKey)
-
-    url = DEFAULT_BINARY_URL
-    cmd = "curl -s {0} -H 'content-type:multipart/form-data' -H \"X-Api-Key: {1}\" -F json='{2}' -F upload='@{3}'"\
-        .format(url, ApiKey, json.dumps(signed_params, indent=4), upload_file_path)
-
-    write_cmd(cmd)
-
-    need_request = False            # TODO 设置　need_request＝True 会使用python第三方库requests发起请求，并打印结果
-    if not need_request:
-        return
-
-    import requests
-    import urllib3
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-    from requests_toolbelt.multipart.encoder import MultipartEncoder
-
-    multipart_data = MultipartEncoder(
-        fields={
-            'upload': ('any', open(upload_file_path, 'rb'), 'text/plain'),
-            'json': json.dumps(signed_params),
-        },
-    )
-
-    res = requests.post(url, data=multipart_data, headers={'Content-Type': multipart_data.content_type, 'X-Api-Key':ApiKey})
-    s = res.content.decode()
-    signed_result = checkout_signed_json(s, SecretKey)
-    if not signed_result:
-        print("inavlid result: ", s)
-        return
-
-    print("================= signed_result is:")
-    print(json.dumps(signed_result, indent=4))
-
-    result = json.loads(signed_result["data"])
-    print("=================result is:")
-    print(json.dumps(result, indent=4))
-
-
-def test_source_get_binary():
-    """
-        检索二进制记录接口测试
-    """
-    params = {
-        "channel": Channel,
-        "key": "test/my2.pic"      # TODO 设置　要查询的二进制记录的key
-    }
-
-    origin_params = {"params": params, "jsonrpc": "2.0", "id": 0, "method": "source-get-binary"}
-    signed_params = get_signed_json(origin_params, SecretKey)
-    print_cmd(signed_params, print_cmd=True)        # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
-
-    need_request = False        # TODO 设置　need_request＝True 会使用python第三方库requests发起请求，并打印结果
-    if not need_request:
-        return
-
-    import requests
-    import urllib3
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-    url = DEFAULT_URL
-    res = requests.post(url, json=signed_params, headers={'content-type': 'application/json', 'X-Api-Key': ApiKey}, verify=False)
-    s = res.content.decode()
-    print(s)
-
-
 #1.用户挖矿
 def test_asset_mine():
     """
@@ -329,6 +249,22 @@ def test_asset_uid_status():
     # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
     request_common(params, "asset-uid-status", print_cmd=True, need_request=False)
 
+#12.uid检索结果
+def test_asset_uid():
+    """
+        批量创建记录接口测试
+    """
+    params = {
+        "channel": Channel,
+        "uid": "20180623142625001",
+        "type": "all",
+        "arr": ["userA", "userB"]
+    }
+
+    # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
+    # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
+    request_common(params, "asset-uid", print_cmd=True, need_request=False)
+
 if __name__ == "__main__":
     #############################################　参数设置　###################################################
     ApiKey = "7a79d668d61993119516d7c898aa072bb971467752e3e7bb2751cc474080db00"             # TODO 设置　用户的ApiKey
@@ -342,13 +278,8 @@ if __name__ == "__main__":
         #test_asset_mine()
         #test_asset_state()
         #test_asset_history()
-        test_asset_uid_status()
-        # test_source_insert_batch()
-        #test_source_transactions()
-        # test_source_transaction()
-        #test_source_state()
-        # test_source_put_binary()
-        # test_source_get_binary()
+        #test_asset_uid_status()
+        test_asset_uid()
     except Exception as e:
         traceback.print_exc()
         print(e)
