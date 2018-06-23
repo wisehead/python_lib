@@ -269,7 +269,7 @@ def test_asset_mine():
     params = {
         "channel": Channel,
         #"uid": "20180623112615000001",
-        "uid": "20180623112615001",
+        "uid": "20180623142625001",
         "arr": [
             {
                 "user": "userA",      # TODO 设置　记录的key。　在一次创建提交中，不要存在相同的key，否则只有一条会被记录到历史交易中
@@ -301,54 +301,33 @@ def test_asset_state():
     # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
     request_common(params, "asset-state", print_cmd=True, need_request=False)
 
-def test_source_transactions():
+#9.查询用户历史纪录
+def test_asset_history():
     """
-        查询历史交易记录接口测试
+        批量创建记录接口测试
     """
     params = {
         "channel": Channel,
-        #"key": "mytest/1",      # TODO 设置　要查询的记录的key
-        "key": "1130102150229180616010000000004",      # TODO 设置　要查询的记录的key
+        "user": "userA"
     }
 
     # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
     # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
-    request_common(params, "source-transactions", print_cmd=True, need_request=False)
+    request_common(params, "asset-history", print_cmd=True, need_request=False)
 
-
-def test_source_transaction():
+#10.uid检索状态
+def test_asset_uid_status():
     """
-        检索交易记录接口测试
+        批量创建记录接口测试
     """
     params = {
         "channel": Channel,
-        "key": "00000000000000000000000000000111",  # TODO 设置　要查询的记录的key
-        #"tx_id": "e84a8ce75c279fa42c05b0860dd25a5a0f5cf4e198f6a157f04b1c4332eda829"     # TODO 设置　要查询交易ID, 此ID由 source-insert-batch, source-put-binary生成，并且可以从source-transactions查询到
-        "tx_id": "345bf63a8381a5486df16733cea2b1256bb6c8ad5400e7b87f616d0755c0d983"     # TODO 设置　要查询交易ID, 此ID由 source-insert-batch, source-put-binary生成，并且可以从source-transactions查询到
+        "uid": "20180623142625001"
     }
 
     # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
     # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
-    request_common(params, "source-transaction", print_cmd=True, need_request=False)
-
-
-def test_source_state():
-    """
-        检索最新状态接口测试
-    """
-    params = {
-        "channel": Channel,
-        #"key": "00000000000000000000000000000111",  # TODO 设置　要查询的记录的key
-        #"key": "1130102150229180616010000000001",  # TODO 设置　要查询的记录的key
-        "key": "1130102150229180616010000000005",  # TODO 设置　要查询的记录的key
-        #"key": "113010215022918061601",  # TODO 设置　要查询的记录的key
-        #"key": "mytest/6",  # TODO 设置　要查询的记录的key
-    }
-
-    # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
-    # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
-    request_common(params, "source-state", print_cmd=True, need_request=False)
-
+    request_common(params, "asset-uid-status", print_cmd=True, need_request=False)
 
 if __name__ == "__main__":
     #############################################　参数设置　###################################################
@@ -361,7 +340,9 @@ if __name__ == "__main__":
         # TODO 选择要测试的接口，一次只能打开一个！！！
 
         #test_asset_mine()
-        test_asset_state()
+        #test_asset_state()
+        #test_asset_history()
+        test_asset_uid_status()
         # test_source_insert_batch()
         #test_source_transactions()
         # test_source_transaction()
