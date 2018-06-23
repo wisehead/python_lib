@@ -261,6 +261,7 @@ def test_source_get_binary():
     print(s)
 
 
+#1.用户挖矿
 def test_asset_mine():
     """
         批量创建记录接口测试
@@ -285,6 +286,20 @@ def test_asset_mine():
     # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
     request_common(params, "asset-mine", print_cmd=True, need_request=False)
 
+
+#8.查询用户积分
+def test_asset_state():
+    """
+        批量创建记录接口测试
+    """
+    params = {
+        "channel": Channel,
+        "arr": ["userA", "userB"]
+    }
+
+    # TODO 设置　print_cmd=True 会把curl命令写到./apitest.sh中　
+    # TODO 设置　need_request=True 会使用python第三方库requests发起请求，并打印结果
+    request_common(params, "asset-state", print_cmd=True, need_request=False)
 
 def test_source_transactions():
     """
@@ -345,7 +360,8 @@ if __name__ == "__main__":
     try:
         # TODO 选择要测试的接口，一次只能打开一个！！！
 
-        test_asset_mine()
+        #test_asset_mine()
+        test_asset_state()
         # test_source_insert_batch()
         #test_source_transactions()
         # test_source_transaction()
