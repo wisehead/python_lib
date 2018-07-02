@@ -342,10 +342,10 @@ if __name__ == "__main__":
     try:
         # TODO 选择要测试的接口，一次只能打开一个！！！
 
-        # test_source_insert_batch()
+         test_source_insert_batch()
         #test_source_transactions()
         # test_source_transaction()
-        test_source_state()
+        #test_source_state()
         # test_source_put_binary()
         # test_source_get_binary()
     except Exception as e:
