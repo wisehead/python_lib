@@ -267,12 +267,22 @@ def test_source_insert_batch():
         "channel": Channel,
         "records": [
             {
-                "key": "1130102150229180616010000000005",      # TODO 设置　记录的key。　在一次创建提交中，不要存在相同的key，否则只有一条会被记录到历史交易中
+                "key": "1130102150229180616010000000001",      # TODO 设置　记录的key。　在一次创建提交中，不要存在相同的key，否则只有一条会被记录到历史交易中
+                "value": "hahaha1",       # TODO 设置　记录的value
+                "meta": {"readcount": 1}
+            },
+            {
+                "key": "1130102150229180616010000000002",
+                "value": "hahahaha2",
+                "meta": {"readcount": 1}
+            },
+            {
+                "key": "1130102150229180616010000000003",      # TODO 设置　记录的key。　在一次创建提交中，不要存在相同的key，否则只有一条会被记录到历史交易中
                 "value": "hahaha3",       # TODO 设置　记录的value
                 "meta": {"readcount": 1}
             },
             {
-                "key": "1130102150229180616010000000006",
+                "key": "1130102150229180616010000000004",
                 "value": "hahahaha4",
                 "meta": {"readcount": 1}
             }
